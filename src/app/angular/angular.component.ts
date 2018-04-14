@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from '../user.service';
 
 @Component({
   selector: 'app-angular',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AngularComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userSerivce: UserService) { }
 
   ngOnInit() {
+    this.userSerivce.getTodoList()
+      .subscribe( body => console.log(body));
   }
 
 }
