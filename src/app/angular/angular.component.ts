@@ -9,14 +9,23 @@ import {TodoVO} from '../domain/todo.vo';
 })
 export class AngularComponent implements OnInit {
   todoList: TodoVO[] = [];
+  newTodo = new TodoVO();
 
-  constructor(private userSerivce: UserService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.userSerivce.getTodoList()
+    this.userService.getTodoList()
       .subscribe( body => {
         this.todoList = body;
         console.log(this.todoList);
+      });
+  }
+
+  addTodo() {
+    this.userService.addTodo(this.newTodo)
+      .subscribe(body => {
+        // todoList 맨 앞에 삽입
+        this.todoList.unshift(body);
       });
   }
 
