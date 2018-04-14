@@ -1,15 +1,23 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {environment} from '../environments/environment';
 import {TodoVO} from './domain/todo.vo';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  private SERVER: string;
+  private headers: HttpHeaders;
 
-  getTodoList(): Observable<TodoVO[]> {
-    return this.http.get<TodoVO[]>('http://www.javabrain.kr:8080/api/todo');
+  constructor(private http: HttpClient) {
+    this.SERVER = `${environment.HOST}`;
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
   }
 
+  getTodoList(): Observable<TodoVO[]> {
+    return this.http.get<TodoVO[]>(this.SERVER + '/api/todo');
+  }
 }
