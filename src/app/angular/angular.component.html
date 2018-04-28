@@ -42,12 +42,12 @@
             <mat-checkbox [(ngModel)]="todo.isFinished">완료유무</mat-checkbox>
           </div>
           <div class="td">
-            <input type="text" [(ngModel)]="todo.todo" />
+            <input [(ngModel)]="todo.todo">
           </div>
           <div class="td">{{todo.created}}</div>
           <div class="td">{{todo.updated}}</div>
           <div class="td">
-            <button mat-raised-button color="primary">저장</button>
+            <button mat-raised-button color="primary" (click)="modify(todo)">저장</button>
             <button mat-raised-button color="warn" (click)="restore(todo)">취소</button>
           </div>
         </div>

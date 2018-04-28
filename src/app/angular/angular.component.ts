@@ -66,4 +66,15 @@ export class AngularComponent implements OnInit {
 
   }
 
+  modify(todo: TodoVO) {
+    this.userService.modifyTodo(todo)
+      .subscribe(body => {
+        // 기존 todo의 메모리 주소를 변경하면 안되고 값만 복사해서 넣어야 한다.
+        Object.assign(todo, body);
+        console.log(todo);
+        // 템플릿 전환
+        todo.isEdited = false;
+      });
+  }
+
 }
