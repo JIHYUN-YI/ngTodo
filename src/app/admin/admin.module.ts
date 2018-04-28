@@ -6,6 +6,7 @@ import { NewsComponent } from './news/news.component';
 import {RouterModule, Routes} from '@angular/router';
 import {MatButtonModule, MatCardModule, MatExpansionModule, MatToolbarModule} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import {AdminService} from './admin.service';
 
 const route: Routes = [
   {path: '', component: IndexComponent, children: [
@@ -24,6 +25,7 @@ const route: Routes = [
     FlexLayoutModule,
     MatExpansionModule
   ],
-  declarations: [IndexComponent, HomeComponent, NewsComponent]
+  declarations: [IndexComponent, HomeComponent, NewsComponent],
+  providers: [AdminService]
 })
 export class AdminModule { }
