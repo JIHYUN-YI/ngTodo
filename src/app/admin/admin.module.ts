@@ -4,6 +4,8 @@ import { IndexComponent } from './index/index.component';
 import { HomeComponent } from './home/home.component';
 import { NewsComponent } from './news/news.component';
 import {RouterModule, Routes} from '@angular/router';
+import {MatButtonModule, MatCardModule, MatExpansionModule, MatToolbarModule} from '@angular/material';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 const route: Routes = [
   {path: '', component: IndexComponent, children: [
@@ -15,7 +17,12 @@ const route: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(route)
+    RouterModule.forChild(route),
+    MatToolbarModule,
+    MatCardModule,
+    MatButtonModule,
+    FlexLayoutModule,
+    MatExpansionModule
   ],
   declarations: [IndexComponent, HomeComponent, NewsComponent]
 })
