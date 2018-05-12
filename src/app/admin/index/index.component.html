@@ -1,31 +1,64 @@
 <mat-toolbar color="primary">
-  <span>관리자 사이트</span>
+  <button mat-icon-button [matMenuTriggerFor]="menu" fxHide.gt-xs="true"><mat-icon>menu</mat-icon></button>
+  <mat-menu #menu="matMenu" [overlapTrigger]="false">
+    <button mat-menu-item routerLink="/jquery">
+      <mat-icon svgIcon="jquery"></mat-icon>
+      <span>jquery</span>
+    </button>
+    <button mat-menu-item routerLink="/angular">
+      <mat-icon svgIcon="angular"></mat-icon>
+      <span>angular</span>
+    </button>
+    <button mat-menu-item routerLink="/news">
+      <mat-icon svgIcon="news"></mat-icon>
+      <span>news</span>
+    </button>
+  </mat-menu>
+  <span routerLink="/" style="cursor: pointer;">AngularTodo</span>
+
+  <span style="flex: 1 1 auto"></span>
+  <div fxHide.xs="true">
+    <button mat-button routerLink="/jquery">
+      <mat-icon svgIcon="jquery"></mat-icon>
+      <span>jquery</span>
+    </button>
+    <button mat-button routerLink="/angular">
+      <mat-icon svgIcon="angular"></mat-icon>
+      <span>angular</span>
+    </button>
+    <button mat-button routerLink="/news">
+      <mat-icon svgIcon="news"></mat-icon>
+      <span>news</span>
+    </button>
+  </div>
+
+  <button mat-button [matMenuTriggerFor]="login_menu">
+    <mat-icon svgIcon="person"></mat-icon>
+    <span *ngIf="!(authService.authSource$ | async)">로그인</span>
+    <span *ngIf="authService.authSource$ | async">내 정보</span>
+  </button>
+  <mat-menu #login_menu="matMenu" [overlapTrigger]="false">
+    <button mat-menu-item (click)="authService.openLogin()" *ngIf="!(authService.authSource$ | async)">
+      <mat-icon svgIcon="login"></mat-icon>
+      <span>로그인</span>
+    </button>
+    <button mat-menu-item (click)="authService.logOut()" *ngIf="authService.authSource$ | async">
+      <mat-icon svgIcon="logout"></mat-icon>
+      <span>로그아웃</span>
+    </button>
+    <button mat-menu-item routerLink="/nickname">
+      <mat-icon svgIcon="nickname"></mat-icon>
+      <span>닉네임변경</span>
+    </button>
+    <button mat-menu-item routerLink="/chat">
+      <mat-icon svgIcon="chat"></mat-icon>
+      <span>채팅</span>
+    </button>
+  </mat-menu>
+
+  <!--<p>data: {{!(authService.authSource$ | async)}}</p>-->
 </mat-toolbar>
 
-<div fxLayout.xs="column" fxLayoutAlign.xs="start stretch" fxLayout="row" fxLayoutAlign="start start">
-  <mat-accordion fxFlex.xs="1 1 auto" fxFlex="0 0 300px" class="ma-1">
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          뉴스 관리
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <p routerLink="/admin/news" style="cursor: pointer;">뉴스 보기</p>
-      <p>뉴스 등록</p>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          회원관리
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <p>회원보기</p>
-      <p>회원등록</p>
-    </mat-expansion-panel>
-  </mat-accordion>
-
-  <div fxFlex="1 1 auto">
-    <router-outlet></router-outlet>
-  </div>
+<div class="container">
+  <router-outlet></router-outlet>
 </div>

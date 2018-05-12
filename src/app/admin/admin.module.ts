@@ -9,7 +9,7 @@ import {
   MatCardModule, MatDialogModule,
   MatExpansionModule,
   MatFormFieldModule,
-  MatIconModule, MatInputModule,
+  MatIconModule, MatInputModule, MatMenuModule,
   MatPaginatorModule, MatSnackBarModule,
   MatToolbarModule
 } from '@angular/material';
@@ -47,7 +47,8 @@ const route: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatMenuModule
   ],
   declarations: [IndexComponent, HomeComponent, ViewComponent, WriteComponent, NewsComponent, ViewDialogComponent],
   providers: [AdminService],

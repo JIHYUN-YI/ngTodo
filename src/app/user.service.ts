@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {environment} from '../environments/environment';
 import {TodoVO} from './domain/todo.vo';
 import {Observable} from 'rxjs/Observable';
 import {ResultVO} from './domain/result.vo';
+import {MemberVO} from './domain/member.vo';
 
 @Injectable()
 export class UserService {
@@ -35,6 +36,38 @@ export class UserService {
   // 할 일 삭제 api
   removeTodo(todo_id: number): Observable<ResultVO> {
     return this.http.delete<ResultVO>(this.SERVER + `/api/todo?todo_id=${todo_id}`);
+  }
+
+  // social login  -----------------------------------------------------------------------------------------------------
+  getSocial(site: string) {
+    return this.http.get(this.SERVER + '/api/social?site=' + site);
+  }
+
+  getMember(member_id: number): Observable<HttpResponse<MemberVO>> {
+    let header = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('token')
+    });
+    return this.http.get<MemberVO>(this.SERVER + '/member/api/member?member_id=' + member_id, {headers: header, observe: 'response'});
+  }
+
+  modifyMember(member: MemberVO): Observable<HttpResponse<ResultVO>> {
+    let header = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('token')
+    });
+    return this.http.put<ResultVO>(this.SERVER + '/member/api/member', member, {headers: header, observe: 'response'});
+  }
+
+  // login & signUp
+  signUp(params: MemberVO) {
+    return this.http.post(this.SERVER + '/api/signUp', JSON.stringify(params), {headers: this.headers})
+      .toPromise();
+  }
+
+  login(params: MemberVO) {
+    return this.http.post(this.SERVER + '/api/login', JSON.stringify(params), {headers: this.headers})
+      .toPromise();
   }
 
 
