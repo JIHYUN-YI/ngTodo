@@ -39,4 +39,8 @@ export class AdminService {
   imageUpload(formData: FormData) {
     return this.http.post(this.SERVER + '/api/imageUpload', formData);
   }
+
+  removeNews(news_id: any): Observable<ResultVO> {
+    return this.http.delete<ResultVO>(this.SERVER + `/api/news?news_id=${news_id}`);
+  }
 }
