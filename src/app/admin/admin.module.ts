@@ -7,11 +7,14 @@ import {RouterModule, Routes} from '@angular/router';
 import {MatButtonModule, MatCardModule, MatExpansionModule, MatPaginatorModule, MatToolbarModule} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {AdminService} from './admin.service';
+import { ViewComponent } from './news/view/view.component';
 
 const route: Routes = [
   {path: '', component: IndexComponent, children: [
       {path: '', component: HomeComponent}, // url 경로는 /admin
-      {path: 'news', component: NewsComponent} // url 경로는 /admin/news
+      {path: 'news', component: NewsComponent, children: [
+          {path: 'view/:news_id', component: ViewComponent},
+        ]} // url 경로는 /admin/news
     ]}
 ];
 
@@ -26,7 +29,7 @@ const route: Routes = [
     MatExpansionModule,
     MatPaginatorModule
   ],
-  declarations: [IndexComponent, HomeComponent, NewsComponent],
+  declarations: [IndexComponent, HomeComponent, ViewComponent, NewsComponent],
   providers: [AdminService]
 })
 export class AdminModule { }
